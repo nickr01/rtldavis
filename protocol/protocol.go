@@ -35,8 +35,8 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/lheijst/rtldavis/crc"
-	"github.com/lheijst/rtldavis/dsp"
+	"github.com/nickr01/rtldavis/crc"
+	"github.com/nickr01/rtldavis/dsp"
 )
 
 var Verbose bool
