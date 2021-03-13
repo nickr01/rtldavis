@@ -4,10 +4,13 @@
 
 ### About this Repository
 
-This repository is a fork of [https://github.com/bemasher/rtldavis](https://github.com/bemasher/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
+This repository is a fork of [https://github.com/lheijst/rtldavis](https://github.com/lheijst/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
+
 1) Added AU,EU and NZ frequencies
 2) Handling of more than one concurrent transmitters.
 3) Output format is changed for use with the weewx-rtldavis driver which does the data parsing. 
+
+*** THIS BUILD IS CURRENTLY NOT DEMODULATING in AU on Intel and Raspi ***
 
 ## Installation
 
@@ -113,7 +116,7 @@ Usage of rtldavis:
         Default = -maxmissed 51
         
   -u [log undefined signals]
-        The program can pick up (i.e. reveive) messages from undefined transmitters, e.g. from a weather 
+        The program can pick up (i.e. receive) messages from undefined transmitters, e.g. from a weather 
         station near-by. De messages are discarded, but you may want to see on which channels they are 
         received and how many.
         Default = -u false
