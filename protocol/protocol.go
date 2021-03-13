@@ -34,6 +34,7 @@ import (
 	"log"
 	"math"
 	"math/rand"
+	"math/bits"
 
 	"github.com/nickr01/rtldavis/crc"
 	"github.com/nickr01/rtldavis/dsp"
@@ -232,7 +233,7 @@ func (p *Parser) Parse(pkts []dsp.Packet) (msgs []Message) {
 	for _, pkt := range pkts {
 		// Bit order over-the-air is reversed.
 		for idx, b := range pkt.Data {
-			pkt.Data[idx] = SwapBitOrder(b)
+            pkt.Data[idx] = bits.Reverse8(b) 
 		}
 		// Keep track of duplicate packets.
 		s := string(pkt.Data)
@@ -299,9 +300,3 @@ func (m Message) String() string {
 	return fmt.Sprintf("{ID:%d}", m.ID)
 }
 
-func SwapBitOrder(b byte) byte {
-	b = ((b & 0xF0) >> 4) | ((b & 0x0F) << 4)
-	b = ((b & 0xCC) >> 2) | ((b & 0x33) << 2)
-	b = ((b & 0xAA) >> 1) | ((b & 0x55) << 1)
-	return b
-}
