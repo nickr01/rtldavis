@@ -20,7 +20,8 @@ package dsp
 import (
 	"fmt"
 	"log"
-	"math"
+//	"math"
+	"math/cmplx"
 )
 
 type ByteToCmplxLUT [256]float64
@@ -40,25 +41,6 @@ func (l *ByteToCmplxLUT) Execute(in []byte, out []complex128) {
 	for idx := range out {
 		inIdx := idx << 1
 		out[idx] = complex(l[in[inIdx]], l[in[inIdx+1]])
-	}
-}
-
-func RotateFs4(in, out []complex128) {
-	for idx := 0; idx < len(out); idx += 4 {
-		inAt := in[idx:]
-		i0 := inAt[0]
-		i1 := inAt[1]
-		i2 := inAt[2]
-		i3 := inAt[3]
-
-		o1 := complex(-imag(i1), real(i1))
-		o3 := complex(imag(i3), -real(i3))
-
-		outAt := out[idx:]
-		outAt[0] = i0
-		outAt[1] = o1
-		outAt[2] = -i2
-		outAt[3] = o3
 	}
 }
 
@@ -82,23 +64,41 @@ func FIR9(in, out []complex128) {
 	}
 }
 
-func Discriminate(in []complex128, out []float64) {
-	// We spend a lot of time in this function and for the sake of efficiency, this:
-	//     out[idx] = cmplx.Phase(in[idx] * cmplx.Conj(in[idx+1]))
-	// Is equivalent to this:
-	for idx := range out {
-		n := in[idx]
-		np := in[idx+1]
+func (d *Demodulator) Discriminate(in []complex128, out []float64) {
+    for idx := range out {
+        // vars are nodes in block diagram hence n_ prefix 
+        n_c0 := in[idx]
 
-		out[idx] = (imag(n)*real(np) - real(n)*imag(np)) / (real(n)*real(n) + imag(n)*imag(n))
-	}
+        // limiter
+        abs := cmplx.Abs(n_c0)
+        n_i0 := real(n_c0)/abs
+        n_q0 := imag(n_c0)/abs
+        n_c0 = complex(n_i0, n_q0)
+        
+        // delay chain
+        n_c1 := d.dl_c0.delay(n_c0)
+        n_c2 := d.dl_c1.delay(n_c1)
+
+        n_i3 := n_i0 - real(n_c2)
+        n_q3 := n_q0 - imag(n_c2)
+        
+        n_i4 := real(n_c1) * n_q3
+        n_q4 := imag(n_c1) * n_i3
+        
+        result := n_i4 - n_q4 // n_q4 - n_i4
+        out[idx] = result 
+    }
 }
 
 func Quantize(input []float64, output []byte) {
 	for idx, val := range input {
-		output[idx] = byte(math.Float64bits(val) >> 63)
-	}
-
+//		output[idx] = byte(math.Float64bits(val) >> 63)
+        if val < 0 { 
+            output[idx] = 0
+        } else {
+            output[idx] = 1
+        }	
+    }
 	return
 }
 
@@ -230,6 +230,16 @@ func (cfg PacketConfig) Log() {
 	log.Println("BufferLength:", cfg.BufferLength)
 }
 
+type UnitDelay struct {
+    n0 complex128
+}
+
+func (d *UnitDelay) delay(n1 complex128) (ret complex128) {
+    ret = d.n0
+    d.n0 = n1
+    return ret
+}
+
 type Demodulator struct {
 	Cfg *PacketConfig
 
@@ -243,6 +253,9 @@ type Demodulator struct {
 	pkt    []byte
 
 	lut ByteToCmplxLUT
+
+    dl_c0   UnitDelay
+    dl_c1   UnitDelay
 }
 
 func NewDemodulator(cfg *PacketConfig) (d Demodulator) {
@@ -283,9 +296,9 @@ func (d *Demodulator) Demodulate(input []byte) []Packet {
 	copy(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], input)
 
 	d.lut.Execute(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], d.IQ[9:])
-	RotateFs4(d.IQ[9:], d.IQ[9:])
+//	RotateFs4(d.IQ[9:], d.IQ[9:])
 	FIR9(d.IQ, d.Filtered[1:])
-	Discriminate(d.Filtered, d.Discriminated[d.Cfg.BlockSize:])
+	d.Discriminate(d.Filtered, d.Discriminated[d.Cfg.BlockSize:])
 	Quantize(d.Discriminated[d.Cfg.BlockSize:], d.Quantized[d.Cfg.BufferLength-d.Cfg.BlockSize:])
 	d.Pack(d.Quantized)
 	return d.Slice(d.Search())

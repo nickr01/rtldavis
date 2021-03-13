@@ -7,10 +7,9 @@
 This repository is a fork of [https://github.com/lheijst/rtldavis](https://github.com/lheijst/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
 
 1) Added AU,EU and NZ frequencies
-2) Handling of more than one concurrent transmitters.
-3) Output format is changed for use with the weewx-rtldavis driver which does the data parsing. 
+2) Used an alternative demodulator that seems more robust in AU
 
-*** THIS BUILD IS CURRENTLY NOT DEMODULATING in AU on Intel and Raspi ***
+*** THIS BUILD is demodulating reasonably robustly in AU on Intel with afc disabled. Not tested on Raspi ***
 
 ## Installation
 
