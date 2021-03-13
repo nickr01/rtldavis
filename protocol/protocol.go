@@ -74,13 +74,14 @@ type Parser struct {
 	factor			float32
 }
 
-func NewParser(symbolLength int, tf string) (p Parser) {
+func NewParser(symbolLength int, cc string) (p Parser) {
 	p.Cfg = NewPacketConfig(symbolLength)
 	p.Demodulator = dsp.NewDemodulator(&p.Cfg)
 	p.CRC = crc.NewCRC("CCITT-16", 0, 0x1021, 0)
 	p.maxTrChList = maxTrCh
+    check := false
 
-	if tf == "EU" {
+	if cc == "EU" {
 		p.channels = []int{ 
 			868077250, 868197250, 868317250, 868437250, 868557250, // EU test 20190324
 		}
@@ -92,8 +93,9 @@ func NewParser(symbolLength int, tf string) (p Parser) {
 		p.reverseHopPatrn = []int{
 			0, 3, 1, 4, 2,   
 		}
+		check = true
 	} else {
-		if tf == "NZ" {
+		if cc == "NZ" {
 			p.channels = []int{
 				// Digitally captured from CC1101 radio.
 				921070709, 921207977, 921345642, 921482910, 921620178, 921757446,
@@ -106,7 +108,24 @@ func NewParser(symbolLength int, tf string) (p Parser) {
 				926835571, 926972839, 927110107, 927246979, 927384644, 927521515,
 				927658783, 927796448, 927933716,
 			}
-		} else {
+    		check = true
+		} else if cc == "AU" {
+			p.channels = []int{
+				// From https://github.com/dekay/DavisRFM69/blob/master/DavisRFM69.h
+				// verified against FFT on gqrx
+				// Chan count and hop sequence is same as US, NZ
+				918078400, 918233948, 918389954, 918546997, 918703979, 918859985, 
+                919016968, 919174988, 919328979, 919487000, 919642944, 919799988, 
+                919955994, 920112000, 920268982, 920424988, 920581970, 920738953, 
+                920895996, 921050964, 921207947, 921365967, 921520996, 921677979, 
+                921833984, 921991943, 922146973, 922304993, 922461975, 922617981, 
+                922774963, 922931946, 923085999, 923242981, 923400940, 923556946, 
+                923712952, 923869995, 924028992, 924182983, 924339966, 924496948, 
+                924653992, 924809998, 924963989, 925122986, 925278992, 925436951, 
+                925591980, 925750000, 925905945,
+			}
+    		check = true
+		} else if cc == "US" {
 			p.channels = []int{
 				// Thanks to Paul Anderson and Rich T for testing the US frequencies
 				902419338, 902921088, 903422839, 903924589, 904426340, 904928090, // US freq per 20190326
@@ -119,21 +138,29 @@ func NewParser(symbolLength int, tf string) (p Parser) {
 				923492858, 923994609, 924496359, 924998110, 925499860, 926001611, 
 				926503361, 927005112, 927506862,  
 			}
+    		check = true
 		}
-		// Both NZ and US use the same hop sequence
-		p.ChannelCount = len(p.channels)
-		p.hopIdx = rand.Intn(p.ChannelCount)
-		p.hopPattern = []int{
-			0, 19, 41, 25, 8, 47, 32, 13, 36, 22, 3, 29, 44, 16, 5, 27, 38,
-			10, 49, 21, 2, 30, 42, 14, 48, 7, 24, 34, 45, 1, 17, 39, 26, 9,
-			31, 50, 37, 12, 20, 33, 4, 43, 28, 15, 35, 6, 40, 11, 23, 46, 18,
-		}
-		p.reverseHopPatrn = []int{
-			0, 29, 20, 10, 40, 14, 45, 25, 4, 33, 17, 47, 37, 7, 23, 43, 13, 
-			30, 50, 1, 38, 19, 9, 48, 26, 3, 32, 15, 42, 11, 21, 34, 6, 39, 
-			27, 44, 8, 36, 16, 31, 46, 2, 22, 41, 12, 28, 49, 5, 24, 18, 35, 
-		}
+
+        if check {
+    		// AU, NZ and US use the same hop sequence
+    		p.ChannelCount = len(p.channels)
+    		p.hopIdx = rand.Intn(p.ChannelCount)
+    		p.hopPattern = []int{
+    			0, 19, 41, 25, 8, 47, 32, 13, 36, 22, 3, 29, 44, 16, 5, 27, 38,
+    			10, 49, 21, 2, 30, 42, 14, 48, 7, 24, 34, 45, 1, 17, 39, 26, 9,
+    			31, 50, 37, 12, 20, 33, 4, 43, 28, 15, 35, 6, 40, 11, 23, 46, 18,
+    		}
+    		p.reverseHopPatrn = []int{
+    			0, 29, 20, 10, 40, 14, 45, 25, 4, 33, 17, 47, 37, 7, 23, 43, 13, 
+    			30, 50, 1, 38, 19, 9, 48, 26, 3, 32, 15, 42, 11, 21, 34, 6, 39, 
+    			27, 44, 8, 36, 16, 31, 46, 2, 22, 41, 12, 28, 49, 5, 24, 18, 35, 
+    		}
+    	}
 	}
+
+    if !check {
+        log.Fatalf("Unknown Country Code: %s\n", cc)
+    }
 	return
 }
 
