@@ -20,7 +20,6 @@ package dsp
 import (
 	"fmt"
 	"log"
-//	"math"
 	"math/cmplx"
 )
 
@@ -66,6 +65,8 @@ func FIR9(in, out []complex128) {
 
 func (d *Demodulator) Discriminate(in []complex128, out []float64) {
     for idx := range out {
+        // from Richard G Lyons: Understanding Digital Signal Processing
+        // differentiating arctan demod with the arctan calls
         // vars are nodes in block diagram hence n_ prefix 
         n_c0 := in[idx]
 
@@ -296,7 +297,6 @@ func (d *Demodulator) Demodulate(input []byte) []Packet {
 	copy(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], input)
 
 	d.lut.Execute(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], d.IQ[9:])
-//	RotateFs4(d.IQ[9:], d.IQ[9:])
 	FIR9(d.IQ, d.Filtered[1:])
 	d.Discriminate(d.Filtered, d.Discriminated[d.Cfg.BlockSize:])
 	Quantize(d.Discriminated[d.Cfg.BlockSize:], d.Quantized[d.Cfg.BufferLength-d.Cfg.BlockSize:])
