@@ -6,8 +6,8 @@
 
 This repository is a fork of [https://github.com/lheijst/rtldavis](https://github.com/lheijst/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
 
-1) Added AU,EU and NZ frequencies
-2) Used an alternative demodulator that seems more robust in AU
+1) Added AU frequencies
+2) Used an alternative demodulator that seems to work better in AU
 
 *** THIS BUILD is demodulating reasonably robustly in AU on Intel with afc disabled. Not tested on Raspi ***
 
