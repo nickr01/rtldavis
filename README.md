@@ -5,10 +5,9 @@
 ### About this Repository
 
 This repository is a fork of [https://github.com/bemasher/rtldavis](https://github.com/bemasher/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
-1) Added EU frequencies
+1) Added AU,EU and NZ frequencies
 2) Handling of more than one concurrent transmitters.
 3) Output format is changed for use with the weewx-rtldavis driver which does the data parsing. 
-
 
 ## Installation
 
@@ -93,7 +92,7 @@ Usage of rtldavis:
         Default = -tr 1 (ID 0)
 
   -tf [tranceiver frequencies]
-        EU or US
+        EU, AU, NZ or US
         Default = -tf EU
 
   -ex [extra loop_delay in ms]
