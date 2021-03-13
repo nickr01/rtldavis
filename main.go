@@ -55,7 +55,7 @@ var (
     ppm               int            // -ppm = frequency correction of rtl dongle in ppm
     gain              int            // -gain = tuner gain in tenths of a Db
     maxmissed         int            // -maxmisssed = max missed-packets-in-a-row before new init
-    transmitterFreq   *string        // -tf = transmitter frequencies, EU, US or NZ.
+    countryCode       *string        // -cc = transmitter frequencies, EU, AU, US or NZ.
     undefined         *bool          // -u = log undefined signals
     verbose           *bool          // -v = emit verbose debug messages
     disableAfc        *bool          // -noafc = disable any automatic corrections
@@ -68,7 +68,7 @@ var (
                                      //   non-defined id's have ptr value 9
     expectedChanPtr   int            // pointer to actChan of next expected msg.Data
     curTime           int64          // current UTC-nanoseconds
-    maxFreq           int            // number of frequencies (EU=5, US=51)
+    maxFreq           int            // number of frequencies (EU=5, AU,NZ,US=51)
     maxChan           int            // number of defined (=actual) channels
     receiveWindow     int            // timespan in ms for receiving a message
 
@@ -91,7 +91,7 @@ var (
     // hop and channel-frequency
     loopTimer         time.Time      // time when next hop sequence will time-out
     loopPeriod        time.Duration  // period since now when next hop sequence will time-out
-    actHopChanIdx     int            // channel-id of actual hop sequence (EU: 0-4, US and NZ: 0-50)
+    actHopChanIdx     int            // channel-id of actual hop sequence (EU: 0-4, AU, US and NZ: 0-50)
     nextHopChan       int            // channel-id of next hop
     nextHopTran       int            // transmitter-id of next hop
     channelFreq       int            // frequency of the channel to transmit
@@ -143,7 +143,7 @@ var (
     flag.IntVar(&startFreq, "startfreq", 0, "test")
     flag.IntVar(&endFreq, "endfreq", 0, "test")
     flag.IntVar(&stepFreq, "stepfreq", 0, "test")
-    transmitterFreq = flag.String("tf", "EU", "transmitter frequencies: EU, US or NZ")
+    countryCode = flag.String("tf", "EU", "Country Code: EU, AU, US or NZ")
     undefined = flag.Bool("u", false, "log undefined signals")
     verbose = flag.Bool("v", false, "emit verbose debug messages")
     disableAfc = flag.Bool("noafc", false, "disable any AFC")
@@ -163,6 +163,7 @@ var (
         }
         mask = mask << 1
     }
+    log.Printf("Country Code:%s",*countryCode)
     log.Printf("tr=%d fc=%d ppm=%d gain=%d maxmissed=%d ex=%d receiveWindow=%d actChan=%d maxChan=%d", tr, fc, ppm, gain, maxmissed, ex, receiveWindow, actChan[0:maxChan], maxChan)
     log.Printf("undefined=%v verbose=%v disableAfc=%v deviceString=%s", *undefined, *verbose, *disableAfc, *deviceString)  
 
@@ -183,7 +184,7 @@ var (
 
 func main() {
     var sdrIndex int = -1
-    p := protocol.NewParser(14, *transmitterFreq)
+    p := protocol.NewParser(14, *countryCode)
     p.Cfg.Log()
 
     fs := p.Cfg.SampleRate
