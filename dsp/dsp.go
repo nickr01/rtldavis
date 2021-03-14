@@ -37,12 +37,12 @@ func NewByteToCmplxLUT() (lut ByteToCmplxLUT) {
 }
 
 func (l *ByteToCmplxLUT) Execute(in []byte, out []complex128) {
-	if len(in) != len(out)<<1 {
+	if len(in) != len(out) * 2 { // <<1 {
 		panic(fmt.Errorf("Incompatible slice lengths: %d, %d", len(in), len(out)))
 	}
 
 	for idx := range out {
-		inIdx := idx << 1
+		inIdx := idx * 2
 		out[idx] = complex(l[in[inIdx]], l[in[inIdx+1]])
 	}
 }
@@ -153,10 +153,11 @@ func (d *Demodulator) Slice(indices []int) (pkts []Packet) {
 			continue
 		}
 
-		// Packet is 1 bit per byte, pack to 8-bits per byte.
+		// Packet is currently 1 symbol per byte in buffer, pack to 8-symbols per byte in the packet.
 		for pIdx := 0; pIdx < d.Cfg.PacketSymbols; pIdx++ {
-			d.pkt[pIdx>>3] <<= 1
-			d.pkt[pIdx>>3] |= d.Quantized[qIdx+(pIdx*d.Cfg.SymbolLength)]
+		    i := pIdx/d.Cfg.SymbolsPerByte
+			d.pkt[i] <<= 1
+			d.pkt[i] |= d.Quantized[qIdx+(pIdx*d.Cfg.SymbolLength)]
 		}
 
 		// Store the packet in the seen map and append to the packet list.
