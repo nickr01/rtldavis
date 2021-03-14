@@ -107,15 +107,6 @@ var (
 
     // msg handling
     lastRecMsg        string         // string of last received raw code
-
-    // test
-    testFreq          bool
-    startFreq         int
-    endFreq           int
-    stepFreq          int
-    testChannelFreq   int
-    testNumber        int
-
 )
 
 
@@ -140,9 +131,6 @@ var (
     // supported gain values: 0, 9, 14, 27, 37, 77, 87, 125, 144, 157, 166, 197, 207,
     // 229, 254, 280, 297, 328, 338, 364, 372, 386, 402, 421, 434, 439, 445, 480, 496.
     flag.IntVar(&maxmissed, "maxmissed", 51, "max missed-packets-in-a-row before new init")
-    flag.IntVar(&startFreq, "startfreq", 0, "test")
-    flag.IntVar(&endFreq, "endfreq", 0, "test")
-    flag.IntVar(&stepFreq, "stepfreq", 0, "test")
     countryCode = flag.String("tf", "EU", "Country Code: EU, AU, US or NZ")
     undefined = flag.Bool("u", false, "log undefined signals")
     verbose = flag.Bool("v", false, "emit verbose debug messages")
@@ -172,14 +160,6 @@ var (
     for i := 1; i < 8; i++ {
         idLoopPeriods[i] = idLoopPeriods[i-1] + 62500 * time.Microsecond
     }
-
-    // check if test
-    if startFreq != 0 && endFreq !=0 && stepFreq != 0 {
-        log.Printf("TEST: startFreq=%d endFreq=%d stepFreq=%d", startFreq, endFreq, stepFreq)
-        testFreq = true
-        testChannelFreq = startFreq - stepFreq
-    }
-
 }
 
 func main() {
@@ -271,24 +251,16 @@ func main() {
     go func() {
         for hop := range nextHop {
             freqCorr = hop.FreqCorr
-            if testFreq {
+            freqCorrection = freqCorr
+            log.Printf("Hop: %s", hop)
+            actHopChanIdx = hop.ChannelIdx
+            channelFreq = hop.ChannelFreq
+            if *disableAfc {
                 freqCorrection = 0
-                testChannelFreq = testChannelFreq + stepFreq
-                testNumber++ 
-                if testChannelFreq > endFreq {
-                    endmsg := "Test reached endfreq; test ended"
-                    log.Fatal(endmsg)
-                }
-                channelFreq = testChannelFreq
-            } else {
-                freqCorrection = freqCorr
-                log.Printf("Hop: %s", hop)
-                actHopChanIdx = hop.ChannelIdx
-                channelFreq = hop.ChannelFreq
             }
-            if *disableAfc {freqCorrection = 0}
-            if *verbose {log.Printf("applied freqCorrection=%d", freqCorrection)}
-
+            if *verbose {
+                log.Printf("applied freqCorrection=%d", freqCorrection)
+            }
             if err := dev.SetCenterFreq(channelFreq + freqCorrection + fc); err != nil {
                 //log.Fatal(err)  // no reason top stop program for one error
                 log.Printf("SetCenterFreq: %d error: %s", hop.ChannelFreq, err)
@@ -326,14 +298,6 @@ func main() {
             //     2: We've waited for sync and nothing has happened for a
             //        full cycle of the pattern.
 
-            if testFreq {
-                if testNumber > 0 {
-                    log.Printf("TESTFREQ %d: Frequency %d: NOK", testNumber, testChannelFreq)
-                }
-                loopPeriod = time.Duration(maxFreq + 2) * idLoopPeriods[actChan[maxChan-1]]
-                loopTimer = time.After(loopPeriod)
-                nextHop <- p.SetHop(0, 0)
-            } else {
                 if !initTransmitrs {
                     // packet missed
                     curTime = time.Now().UnixNano()
@@ -372,23 +336,11 @@ func main() {
                     log.Printf("Init channels: wait max %d seconds for a message of each transmitter", loopPeriod/1000000000)
                     nextHop <- p.SetHop(0, 0)
                 }
-            }
 
         default:
             in.Read(block)
             handleNxtPacket = false
             for _, msg := range p.Parse(p.Demodulate(block)) {
-                if testFreq {
-                    if testNumber > 0 {
-                        if msgIdToChan[int(msg.ID)] != 9 {
-                            log.Printf("TESTFREQ %d: Frequency %d (freqCorr=%d): OK, msg.data: %02X", testNumber, testChannelFreq, freqCorr, msg.Data)
-                            loopPeriod = time.Duration(maxFreq + 2) * idLoopPeriods[actChan[maxChan-1]]
-                            loopTimer = time.After(loopPeriod)
-                            nextHop <- p.SetHop(0, 0)
-                        }
-                    }
-                    continue  // read next message
-                }
                 curTime = time.Now().UnixNano()
                 //log.Printf("msg.Data: %02X", msg.Data)
                 // Keep track of duplicate packets
