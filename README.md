@@ -7,7 +7,10 @@
 This repository is a fork of [https://github.com/lheijst/rtldavis](https://github.com/lheijst/rtldavis) for use with custom receiver modules. It has been modified in numerous ways.
 
 1) Added AU frequencies
-2) Used an alternative demodulator that seems to work better in AU
+2) Used an alternative demodulator that seems to work better in noisier conditions, tested in AU
+3) Made code a little more self-documenting
+4) Removed an probably unnecessary buffer copy
+5) Removed frequency scan code. Unnecessary regression test burden. For same function is faster to use FFT 'scan' in gqrx or equivalent.
 
 *** THIS BUILD is demodulating reasonably robustly in AU on Intel with afc disabled. Not tested on Raspi ***
 
