@@ -184,7 +184,7 @@ var (
 
 func main() {
     var sdrIndex int = -1
-    p := protocol.NewParser(14, *countryCode)
+    p := protocol.NewParser(protocol.SAMPLES_PER_SYMBOL, *countryCode)
     p.Cfg.Log()
 
     fs := p.Cfg.SampleRate

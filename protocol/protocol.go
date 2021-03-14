@@ -42,13 +42,27 @@ import (
 
 var Verbose bool
 
+const SYMBOLS_PER_SECOND = 19200        // as per Davis protocol
+const SAMPLES_PER_SYMBOL = 14           // this we could change if desired
+const SYMBOLS_PER_BYTE = 8
+
+const PREAMBLE = "1100101110001001"     // must be multiple of 8. Could lengthen to include preceding sync bytes. NB is bit order swapped on air so if view with URH need to use NRZ+bit swap
+const SYMBOLS_PER_PREAMBLE = len(PREAMBLE)
+const BYTES_PER_PREAMBLE = SYMBOLS_PER_PREAMBLE/SYMBOLS_PER_BYTE 
+
+const DATA_BYTES_PER_PACKET = 6         // as per Ti CC1021/1101 datasheets 
+const CHECKSUM_BYTES_PER_PACKET = 2     // as per Ti CC1021/1101 datasheets
+
+const SYMBOLS_PER_PACKET = (BYTES_PER_PREAMBLE + DATA_BYTES_PER_PACKET + CHECKSUM_BYTES_PER_PACKET) * SYMBOLS_PER_BYTE // 80 
+
 func NewPacketConfig(symbolLength int) (cfg dsp.PacketConfig) {
 	return dsp.NewPacketConfig(
-		19200,
-		14,
-		16,
-		80,
-		"1100101110001001",
+	    SYMBOLS_PER_BYTE,
+	    SYMBOLS_PER_SECOND,
+		SAMPLES_PER_SYMBOL,
+		SYMBOLS_PER_PREAMBLE,
+		SYMBOLS_PER_PACKET,
+		PREAMBLE,
 	)
 }
 
@@ -243,7 +257,7 @@ func (p *Parser) Parse(pkts []dsp.Packet) (msgs []Message) {
 		seen[s] = true
 
 		// If the checksum fails, bail.
-		if p.Checksum(pkt.Data[2:]) != 0 {
+		if p.Checksum(pkt.Data[BYTES_PER_PREAMBLE:]) != 0 {
 			continue
 		}
 		// Thanks to Steve Wormley for an improved calculation of freqError.
@@ -251,13 +265,13 @@ func (p *Parser) Parse(pkts []dsp.Packet) (msgs []Message) {
 		// transmitter and receiver.
 		// It should have equal ones and zeros so we should average out to 0
 		// Have to stride this at the same as symbol length
-		lower := pkt.Idx + 0*p.Cfg.SymbolLength
-		upper := pkt.Idx + 16*p.Cfg.SymbolLength
+		lower := pkt.Idx + 0 * p.Cfg.SymbolLength
+		upper := pkt.Idx + SYMBOLS_PER_PREAMBLE * p.Cfg.SymbolLength
 		tail := p.Demodulator.Discriminated[lower:upper]
 		stride := lower % p.Cfg.SymbolLength
 		count := 0
 		var mean float64
-		var discrim [16]float64
+		var discrim [SYMBOLS_PER_PREAMBLE]float64
 		for i, sample := range tail {
 			if i % p.Cfg.SymbolLength == stride {
 				mean += sample

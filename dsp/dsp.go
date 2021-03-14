@@ -23,6 +23,10 @@ import (
 	"math/cmplx"
 )
 
+const SAMPLES_PER_BLOCK = 512
+const IQBYTES_PER_SAMPLE = 2
+const IQBYTES_PER_BLOCK = SAMPLES_PER_BLOCK * IQBYTES_PER_SAMPLE
+
 type ByteToCmplxLUT [256]float64
 
 func NewByteToCmplxLUT() (lut ByteToCmplxLUT) {
@@ -171,6 +175,8 @@ func (d *Demodulator) Slice(indices []int) (pkts []Packet) {
 
 // PacketConfig specifies packet-specific radio configuration.
 type PacketConfig struct {
+    SymbolsPerByte          int
+    
 	BitRate                        int
 	SymbolLength                   int
 	PreambleSymbols, PacketSymbols int
@@ -185,9 +191,11 @@ type PacketConfig struct {
 	BufferLength                 int
 }
 
-func NewPacketConfig(bitRate, symbolLength, preambleSymbols, packetSymbols int, preamble string) PacketConfig {
+func NewPacketConfig(symbolsPerByte, bitRate, symbolLength, preambleSymbols, packetSymbols int, preamble string) PacketConfig {
 	var cfg PacketConfig
 
+    cfg.SymbolsPerByte = symbolsPerByte
+ 
 	cfg.BitRate = bitRate
 	cfg.SymbolLength = symbolLength
 
@@ -210,8 +218,8 @@ func NewPacketConfig(bitRate, symbolLength, preambleSymbols, packetSymbols int, 
 
 	cfg.SampleRate = cfg.BitRate * cfg.SymbolLength
 
-	cfg.BlockSize = 512
-	cfg.BlockSize2 = cfg.BlockSize << 1
+	cfg.BlockSize = SAMPLES_PER_BLOCK
+	cfg.BlockSize2 = cfg.BlockSize * IQBYTES_PER_SAMPLE // << 1
 
 	cfg.BufferLength = (cfg.PacketLength/cfg.BlockSize + 2) * cfg.BlockSize
 
@@ -219,6 +227,7 @@ func NewPacketConfig(bitRate, symbolLength, preambleSymbols, packetSymbols int, 
 }
 
 func (cfg PacketConfig) Log() {
+	log.Println("SymbolsPerByte:", cfg.SymbolsPerByte)
 	log.Println("BitRate:", cfg.BitRate)
 	log.Println("SymbolLength:", cfg.SymbolLength)
 	log.Println("SampleRate:", cfg.SampleRate)
@@ -262,10 +271,10 @@ type Demodulator struct {
 func NewDemodulator(cfg *PacketConfig) (d Demodulator) {
 	d.Cfg = cfg
 
-	d.Raw = make([]byte, d.Cfg.BufferLength<<1)
+	d.Raw = make([]byte, d.Cfg.BufferLength * IQBYTES_PER_SAMPLE)
 	d.IQ = make([]complex128, d.Cfg.BlockSize+9)
 	d.Filtered = make([]complex128, d.Cfg.BlockSize+1)
-	d.Discriminated = make([]float64, d.Cfg.BlockSize*2)
+	d.Discriminated = make([]float64, d.Cfg.BlockSize * 2) // ??
 	d.Quantized = make([]byte, d.Cfg.BufferLength)
 
 	d.slices = make([][]byte, d.Cfg.SymbolLength)
@@ -278,7 +287,7 @@ func NewDemodulator(cfg *PacketConfig) (d Demodulator) {
 		d.slices[symbolOffset] = flat[lower:upper]
 	}
 
-	d.pkt = make([]byte, (d.Cfg.PacketSymbols+7)>>3)
+	d.pkt = make([]byte, (d.Cfg.PacketSymbols+7) / d.Cfg.SymbolsPerByte)
 
 	d.lut = NewByteToCmplxLUT()
 
@@ -294,9 +303,9 @@ func (d *Demodulator) Demodulate(input []byte) []Packet {
 	copy(d.Discriminated, d.Discriminated[d.Cfg.BlockSize:])
 	copy(d.Quantized, d.Quantized[d.Cfg.BlockSize:])
 
-	copy(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], input)
+	copy(d.Raw[(d.Cfg.BufferLength*IQBYTES_PER_SAMPLE)-d.Cfg.BlockSize2:], input)
 
-	d.lut.Execute(d.Raw[d.Cfg.BufferLength<<1-d.Cfg.BlockSize2:], d.IQ[9:])
+	d.lut.Execute(d.Raw[(d.Cfg.BufferLength*IQBYTES_PER_SAMPLE)-d.Cfg.BlockSize2:], d.IQ[9:])
 	FIR9(d.IQ, d.Filtered[1:])
 	d.Discriminate(d.Filtered, d.Discriminated[d.Cfg.BlockSize:])
 	Quantize(d.Discriminated[d.Cfg.BlockSize:], d.Quantized[d.Cfg.BufferLength-d.Cfg.BlockSize:])
