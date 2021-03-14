@@ -272,7 +272,6 @@ type Demodulator struct {
 func NewDemodulator(cfg *PacketConfig) (d Demodulator) {
 	d.Cfg = cfg
 
-	d.Raw = make([]byte, d.Cfg.BufferLength * IQBYTES_PER_SAMPLE)
 	d.IQ = make([]complex128, d.Cfg.BlockSize+9)
 	d.Filtered = make([]complex128, d.Cfg.BlockSize+1)
 	d.Discriminated = make([]float64, d.Cfg.BlockSize * 2) // ??
@@ -296,18 +295,17 @@ func NewDemodulator(cfg *PacketConfig) (d Demodulator) {
 }
 
 func (d *Demodulator) Demodulate(input []byte) []Packet {
-	copy(d.Raw, d.Raw[d.Cfg.BlockSize2:])
 	// Only need the last filter-length worth of samples.
 	// d.IQ is BlockSize + 9 for our case.
+	// rotate buffers ready for new data
 	copy(d.IQ, d.IQ[d.Cfg.BlockSize:])
 	d.Filtered[0] = d.Filtered[len(d.Filtered)-1]
 	copy(d.Discriminated, d.Discriminated[d.Cfg.BlockSize:])
 	copy(d.Quantized, d.Quantized[d.Cfg.BlockSize:])
 
-	copy(d.Raw[(d.Cfg.BufferLength*IQBYTES_PER_SAMPLE)-d.Cfg.BlockSize2:], input)
-
-	d.lut.Execute(d.Raw[(d.Cfg.BufferLength*IQBYTES_PER_SAMPLE)-d.Cfg.BlockSize2:], d.IQ[9:])
-	FIR9(d.IQ, d.Filtered[1:])
+    // now do the work
+	d.lut.Execute(input, d.IQ[9:])  // convert IQ to complex
+	FIR9(d.IQ, d.Filtered[1:])      // LPF
 	d.Discriminate(d.Filtered, d.Discriminated[d.Cfg.BlockSize:])
 	Quantize(d.Discriminated[d.Cfg.BlockSize:], d.Quantized[d.Cfg.BufferLength-d.Cfg.BlockSize:])
 	d.Pack(d.Quantized)
