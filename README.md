@@ -12,7 +12,7 @@ This repository is a fork of [https://github.com/lheijst/rtldavis](https://githu
 4) Removed an probably unnecessary buffer copy
 5) Removed frequency scan code. Unnecessary regression test burden. For same function is faster to use FFT 'scan' in gqrx or equivalent.
 
-*** THIS BUILD is demodulating reasonably robustly in AU on Intel with afc disabled. Not tested on Raspi ***
+*** THIS BUILD demodulates reasonably robustly in AU on Intel and Raspi, but requires afc disabled ***
 
 ## Installation
 
