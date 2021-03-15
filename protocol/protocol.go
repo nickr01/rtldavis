@@ -282,7 +282,7 @@ func (p *Parser) Parse(pkts []dsp.Packet) (msgs []Message) {
 		mean /= float64(count)
 		if (Verbose) {log.Printf("m1: %f l: %d c: %d x: %.2f",mean,len(tail),count,discrim)}
 
-		// The preamble is a set of 0 and 1 symbols, equal in number. The driminator's output is
+		// The preamble is a set of 0 and 1 symbols, equal in number. The discriminator's output is
 		// measured in radians.
 		freqerr := -int((mean*float64(p.Cfg.SampleRate))/(2*math.Pi))
 		msg := NewMessage(pkt)
@@ -305,7 +305,7 @@ type Message struct {
 func NewMessage(pkt dsp.Packet) (m Message) {
 	m.Idx = pkt.Idx
 	m.Data = make([]byte, len(pkt.Data)-2)
-	copy(m.Data, pkt.Data[2:])
+	copy(m.Data, pkt.Data[BYTES_PER_PREAMBLE:])
 	m.ID = m.Data[0] & 0x7
 	return m
 }
