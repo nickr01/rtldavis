@@ -1,0 +1,356 @@
+12:03:07.581171 rtldavis.go VERSION=0.15
+12:03:07.581247 Country Code:AU
+12:03:07.581255 tr=1 fc=0 ppm=0 gain=0 maxmissed=21 ex=0 receiveWindow=300 actChan=[0] maxChan=1
+12:03:07.581259 undefined=false verbose=false disableAfc=true deviceString=0
+12:03:07.581374 SymbolsPerByte: 8
+12:03:07.581377 BitRate: 19200
+12:03:07.581378 SymbolLength: 14
+12:03:07.581379 SampleRate: 268800
+12:03:07.581380 Preamble: 1100101110001001
+12:03:07.581381 PreambleSymbols: 16
+12:03:07.581382 PreambleLength: 224
+12:03:07.581383 PacketSymbols: 80
+12:03:07.581384 PacketLength: 1120
+12:03:07.581385 BlockSize: 512
+12:03:07.581386 BufferLength: 2048
+Found Rafael Micro R820T/2 tuner
+12:03:08.045827 Hop: {ChannelIdx:0 ChannelFreq:918078400 FreqError:0 Transmitter:0}
+Exact sample rate is: 268800.001367 Hz
+12:03:08.218905 GetTunerGain: 0 Db
+12:03:08.218995 SetFreqCorrection 0 ppm Successful
+Allocating 1 zero-copy buffers
+12:03:08.223646 Init channels: wait max 135 seconds for a message of each transmitter
+12:03:32.248271 TRANSMITTER 0 SEEN
+12:03:32.248317 Hop: {ChannelIdx:19 ChannelFreq:921050964 FreqError:0 Transmitter:0}
+12:03:34.811660 ISS: E0021A730300 2 0 0 0 0 msg.ID=0
+12:03:34.811687 Hop: {ChannelIdx:41 ChannelFreq:924496948 FreqError:0 Transmitter:0}
+12:03:37.373567 ISS: 50021AFF7300 3 0 0 0 0 msg.ID=0
+12:03:37.373596 Hop: {ChannelIdx:25 ChannelFreq:921991943 FreqError:0 Transmitter:0}
+12:03:39.935519 ISS: 90021A030302 4 0 0 0 0 msg.ID=0
+12:03:39.935539 Hop: {ChannelIdx:8 ChannelFreq:919328979 FreqError:0 Transmitter:0}
+12:03:42.499298 ISS: 80011A2EAB00 5 0 0 0 0 msg.ID=0
+12:03:42.499332 Hop: {ChannelIdx:47 ChannelFreq:925436951 FreqError:0 Transmitter:0}
+12:03:45.060939 ISS: E0011A730300 6 0 0 0 0 msg.ID=0
+12:03:45.061107 Hop: {ChannelIdx:32 ChannelFreq:923085999 FreqError:0 Transmitter:0}
+12:03:47.622840 ISS: 50021AFF7300 7 0 0 0 0 msg.ID=0
+12:03:47.622864 Hop: {ChannelIdx:13 ChannelFreq:920112000 FreqError:0 Transmitter:0}
+12:03:50.184695 ISS: A0011A4A2B00 8 0 0 0 0 msg.ID=0
+12:03:50.184717 Hop: {ChannelIdx:36 ChannelFreq:923712952 FreqError:0 Transmitter:0}
+12:03:52.747610 ISS: 80011A2EAB00 9 0 0 0 0 msg.ID=0
+12:03:52.747633 Hop: {ChannelIdx:22 ChannelFreq:921520996 FreqError:0 Transmitter:0}
+12:03:55.311177 ISS: E0011A730300 10 0 0 0 0 msg.ID=0
+12:03:55.311223 Hop: {ChannelIdx:3 ChannelFreq:918546997 FreqError:0 Transmitter:0}
+12:03:57.873124 ISS: 50011AFF7300 11 0 0 0 0 msg.ID=0
+12:03:57.873149 Hop: {ChannelIdx:29 ChannelFreq:922617981 FreqError:0 Transmitter:0}
+12:04:00.434993 ISS: A0011A4A2B00 12 0 0 0 0 msg.ID=0
+12:04:00.435019 Hop: {ChannelIdx:44 ChannelFreq:924963989 FreqError:0 Transmitter:0}
+12:04:02.996800 ISS: 80011A2EAB00 13 0 0 0 0 msg.ID=0
+12:04:02.996829 Hop: {ChannelIdx:16 ChannelFreq:920581970 FreqError:0 Transmitter:0}
+12:04:05.560719 ISS: E0021A730300 14 0 0 0 0 msg.ID=0
+12:04:05.560741 Hop: {ChannelIdx:5 ChannelFreq:918859985 FreqError:0 Transmitter:0}
+12:04:08.122719 ISS: 50011CFF7300 15 0 0 0 0 msg.ID=0
+12:04:08.122741 Hop: {ChannelIdx:27 ChannelFreq:922304993 FreqError:0 Transmitter:0}
+12:04:10.684850 ISS: 60021CFFC300 16 0 0 0 0 msg.ID=0
+12:04:10.684880 Hop: {ChannelIdx:38 ChannelFreq:924028992 FreqError:0 Transmitter:0}
+12:04:13.248261 ISS: 80011C2EAB00 17 0 0 0 0 msg.ID=0
+12:04:13.248285 Hop: {ChannelIdx:10 ChannelFreq:919642944 FreqError:0 Transmitter:0}
+12:04:15.809950 ISS: E0011C730300 18 0 0 0 0 msg.ID=0
+12:04:15.809972 Hop: {ChannelIdx:49 ChannelFreq:925750000 FreqError:0 Transmitter:0}
+12:04:18.371950 ISS: 50011CFF7300 19 0 0 0 0 msg.ID=0
+12:04:18.371986 Hop: {ChannelIdx:21 ChannelFreq:921365967 FreqError:0 Transmitter:0}
+12:04:20.935543 ISS: 40011CFFC300 20 0 0 0 0 msg.ID=0
+12:04:20.935565 Hop: {ChannelIdx:2 ChannelFreq:918389954 FreqError:0 Transmitter:0}
+12:04:23.497597 ISS: 80011C2EAB00 21 0 0 0 0 msg.ID=0
+12:04:23.497624 Hop: {ChannelIdx:30 ChannelFreq:922774963 FreqError:0 Transmitter:0}
+12:04:26.059198 ISS: E0011C730300 22 0 0 0 0 msg.ID=0
+12:04:26.059226 Hop: {ChannelIdx:42 ChannelFreq:924653992 FreqError:0 Transmitter:0}
+12:04:28.621134 ISS: 50011CFF7300 23 0 0 0 0 msg.ID=0
+12:04:28.621307 Hop: {ChannelIdx:14 ChannelFreq:920268982 FreqError:0 Transmitter:0}
+12:04:31.185183 ISS: 90011C030312 24 0 0 0 0 msg.ID=0
+12:04:31.185209 Hop: {ChannelIdx:48 ChannelFreq:925591980 FreqError:0 Transmitter:0}
+12:04:33.747265 ISS: 80001C2EAB00 25 0 0 0 0 msg.ID=0
+12:04:33.747306 Hop: {ChannelIdx:7 ChannelFreq:919174988 FreqError:0 Transmitter:0}
+12:04:36.308922 ISS: E0001C730300 26 0 0 0 0 msg.ID=0
+12:04:36.308955 Hop: {ChannelIdx:24 ChannelFreq:921833984 FreqError:0 Transmitter:0}
+12:04:38.872471 ISS: 50011CFF7300 27 0 0 0 0 msg.ID=0
+12:04:38.872525 Hop: {ChannelIdx:34 ChannelFreq:923400940 FreqError:0 Transmitter:0}
+12:04:41.434372 ISS: A0011C502B00 28 0 0 0 0 msg.ID=0
+12:04:41.434406 Hop: {ChannelIdx:45 ChannelFreq:925122986 FreqError:0 Transmitter:0}
+12:04:43.996412 ISS: 80011C2EAB00 29 0 0 0 0 msg.ID=0
+12:04:43.996441 Hop: {ChannelIdx:1 ChannelFreq:918233948 FreqError:0 Transmitter:0}
+12:04:46.558134 ISS: E0011C730300 30 0 0 0 0 msg.ID=0
+12:04:46.558160 Hop: {ChannelIdx:17 ChannelFreq:920738953 FreqError:0 Transmitter:0}
+12:04:46.560253 duplicate packet: E0011C730300A1F7
+12:04:49.122128 ISS: 50011CFF7300 31 0 0 0 0 msg.ID=0
+12:04:49.122165 Hop: {ChannelIdx:39 ChannelFreq:924182983 FreqError:0 Transmitter:0}
+12:04:51.684022 ISS: A0011C502B00 32 0 0 0 0 msg.ID=0
+12:04:51.684052 Hop: {ChannelIdx:26 ChannelFreq:922146973 FreqError:0 Transmitter:0}
+12:04:54.245901 ISS: 80011C2EAB00 33 0 0 0 0 msg.ID=0
+12:04:54.245927 Hop: {ChannelIdx:9 ChannelFreq:919487000 FreqError:0 Transmitter:0}
+12:04:56.809514 ISS: E0011C730300 34 0 0 0 0 msg.ID=0
+12:04:56.809541 Hop: {ChannelIdx:31 ChannelFreq:922931946 FreqError:0 Transmitter:0}
+12:04:59.371382 ISS: 50011CFF7300 35 0 0 0 0 msg.ID=0
+12:04:59.371429 Hop: {ChannelIdx:50 ChannelFreq:925905945 FreqError:0 Transmitter:0}
+12:05:01.934165 ISS: 60011CFFC300 36 0 0 0 0 msg.ID=0
+12:05:01.934216 Hop: {ChannelIdx:37 ChannelFreq:923869995 FreqError:0 Transmitter:0}
+12:05:04.495548 ISS: 80011C2EAB00 37 0 0 0 0 msg.ID=0
+12:05:04.495579 Hop: {ChannelIdx:12 ChannelFreq:919955994 FreqError:0 Transmitter:0}
+12:05:07.059460 ISS: E0011C730300 38 0 0 0 0 msg.ID=0
+12:05:07.059485 Hop: {ChannelIdx:20 ChannelFreq:921207947 FreqError:0 Transmitter:0}
+12:05:09.621307 ISS: 50001CFF7300 39 0 0 0 0 msg.ID=0
+12:05:09.621334 Hop: {ChannelIdx:33 ChannelFreq:923242981 FreqError:0 Transmitter:0}
+12:05:12.183904 ISS: 40001CFFC300 40 0 0 0 0 msg.ID=0
+12:05:12.183948 Hop: {ChannelIdx:4 ChannelFreq:918703979 FreqError:0 Transmitter:0}
+12:05:14.745437 ISS: 80001C2EAB00 41 0 0 0 0 msg.ID=0
+12:05:14.745458 Hop: {ChannelIdx:43 ChannelFreq:924809998 FreqError:0 Transmitter:0}
+12:05:17.309159 ISS: E00126730100 42 0 0 0 0 msg.ID=0
+12:05:17.309193 Hop: {ChannelIdx:28 ChannelFreq:922461975 FreqError:0 Transmitter:0}
+12:05:19.870892 ISS: 500127FF7100 43 0 0 0 0 msg.ID=0
+12:05:19.870918 Hop: {ChannelIdx:15 ChannelFreq:920424988 FreqError:0 Transmitter:0}
+12:05:22.432957 ISS: 900125030322 44 0 0 0 0 msg.ID=0
+12:05:22.433003 Hop: {ChannelIdx:35 ChannelFreq:923556946 FreqError:0 Transmitter:0}
+12:05:24.994693 ISS: 8001252EAB00 45 0 0 0 0 msg.ID=0
+12:05:24.994717 Hop: {ChannelIdx:6 ChannelFreq:919016968 FreqError:0 Transmitter:0}
+12:05:27.558673 ISS: E00225730300 46 0 0 0 0 msg.ID=0
+12:05:27.558827 Hop: {ChannelIdx:40 ChannelFreq:924339966 FreqError:0 Transmitter:0}
+12:05:30.120724 ISS: 500125FF7300 47 0 0 0 0 msg.ID=0
+12:05:30.120755 Hop: {ChannelIdx:11 ChannelFreq:919799988 FreqError:0 Transmitter:0}
+12:05:32.682431 ISS: A0013C5C2B00 48 0 0 0 0 msg.ID=0
+12:05:32.682458 Hop: {ChannelIdx:23 ChannelFreq:921677979 FreqError:0 Transmitter:0}
+12:05:35.246067 ISS: 8002432EAB00 49 0 0 0 0 msg.ID=0
+12:05:35.246110 Hop: {ChannelIdx:46 ChannelFreq:925278992 FreqError:0 Transmitter:0}
+12:05:37.807962 ISS: E00143730300 50 0 0 0 0 msg.ID=0
+12:05:37.807987 Hop: {ChannelIdx:18 ChannelFreq:920895996 FreqError:0 Transmitter:0}
+12:05:40.369804 ISS: 500143FF7300 51 0 0 0 0 msg.ID=0
+12:05:40.369830 Hop: {ChannelIdx:0 ChannelFreq:918078400 FreqError:-1247 Transmitter:0}
+12:05:42.933449 ISS: A001435C2900 52 0 0 0 0 msg.ID=0
+12:05:42.933472 Hop: {ChannelIdx:19 ChannelFreq:921050964 FreqError:-1666 Transmitter:0}
+12:05:45.495269 ISS: 8001422EBB00 53 0 0 0 0 msg.ID=0
+12:05:45.495291 Hop: {ChannelIdx:41 ChannelFreq:924496948 FreqError:-1241 Transmitter:0}
+12:05:48.057375 ISS: E00232730300 54 0 0 0 0 msg.ID=0
+12:05:48.057467 Hop: {ChannelIdx:25 ChannelFreq:921991943 FreqError:-1268 Transmitter:0}
+12:05:50.619094 ISS: 500132FF7100 55 0 0 0 0 msg.ID=0
+12:05:50.619120 Hop: {ChannelIdx:8 ChannelFreq:919328979 FreqError:-1542 Transmitter:0}
+12:05:53.183169 ISS: 600132FFC100 56 0 0 0 0 msg.ID=0
+12:05:53.183192 Hop: {ChannelIdx:47 ChannelFreq:925436951 FreqError:-1414 Transmitter:0}
+12:05:55.744910 ISS: 8002322EB900 57 0 0 0 0 msg.ID=0
+12:05:55.744936 Hop: {ChannelIdx:32 ChannelFreq:923085999 FreqError:-1609 Transmitter:0}
+12:05:58.306801 ISS: E00132730100 58 0 0 0 0 msg.ID=0
+12:05:58.306828 Hop: {ChannelIdx:13 ChannelFreq:920112000 FreqError:-814 Transmitter:0}
+12:06:00.870616 ISS: 500132FF7100 59 0 0 0 0 msg.ID=0
+12:06:00.870673 Hop: {ChannelIdx:36 ChannelFreq:923712952 FreqError:-1687 Transmitter:0}
+12:06:03.432500 ISS: 400132FFC100 60 0 0 0 0 msg.ID=0
+12:06:03.432528 Hop: {ChannelIdx:22 ChannelFreq:921520996 FreqError:-1598 Transmitter:0}
+12:06:05.994237 ISS: 80022D2EC900 61 0 0 0 0 msg.ID=0
+12:06:05.994260 Hop: {ChannelIdx:3 ChannelFreq:918546997 FreqError:-857 Transmitter:0}
+12:06:08.556096 ISS: E0022C730300 62 0 0 0 0 msg.ID=0
+12:06:08.556176 Hop: {ChannelIdx:29 ChannelFreq:922617981 FreqError:-760 Transmitter:0}
+12:06:08.558213 duplicate packet: E0022C73030063CC
+12:06:11.119356 ISS: 50012CFF7300 63 0 0 0 0 msg.ID=0
+12:06:11.119384 Hop: {ChannelIdx:44 ChannelFreq:924963989 FreqError:-2061 Transmitter:0}
+12:06:13.683084 ISS: 90012C030332 64 0 0 0 0 msg.ID=0
+12:06:13.683109 Hop: {ChannelIdx:16 ChannelFreq:920581970 FreqError:-1600 Transmitter:0}
+12:06:16.244892 ISS: 80012C2ECB00 65 0 0 0 0 msg.ID=0
+12:06:16.244915 Hop: {ChannelIdx:5 ChannelFreq:918859985 FreqError:-1143 Transmitter:0}
+12:06:18.806895 ISS: E0022B730100 66 0 0 0 0 msg.ID=0
+12:06:18.806924 Hop: {ChannelIdx:27 ChannelFreq:922304993 FreqError:-1170 Transmitter:0}
+12:06:21.368440 ISS: 500225FF7300 67 0 0 0 0 msg.ID=0
+12:06:21.368465 Hop: {ChannelIdx:38 ChannelFreq:924028992 FreqError:-958 Transmitter:0}
+12:06:23.932683 ISS: A00225592900 68 0 0 0 0 msg.ID=0
+12:06:23.932709 Hop: {ChannelIdx:10 ChannelFreq:919642944 FreqError:-1634 Transmitter:0}
+12:06:26.494253 ISS: 8002252EC900 69 0 0 0 0 msg.ID=0
+12:06:26.494289 Hop: {ChannelIdx:49 ChannelFreq:925750000 FreqError:-1015 Transmitter:0}
+12:06:29.056123 ISS: E00123730100 70 0 0 0 0 msg.ID=0
+12:06:29.056152 Hop: {ChannelIdx:21 ChannelFreq:921365967 FreqError:-1019 Transmitter:0}
+12:06:31.619957 ISS: 500123FF7300 71 0 0 0 0 msg.ID=0
+12:06:31.619985 Hop: {ChannelIdx:2 ChannelFreq:918389954 FreqError:-1233 Transmitter:0}
+12:06:34.181715 ISS: A00123592B00 72 0 0 0 0 msg.ID=0
+12:06:34.181757 Hop: {ChannelIdx:30 ChannelFreq:922774963 FreqError:-1561 Transmitter:0}
+12:06:36.743624 ISS: 8001232ECB00 73 0 0 0 0 msg.ID=0
+12:06:36.743656 Hop: {ChannelIdx:42 ChannelFreq:924653992 FreqError:-987 Transmitter:0}
+12:06:39.307572 ISS: E00116730300 74 0 0 0 0 msg.ID=0
+12:06:39.307601 Hop: {ChannelIdx:14 ChannelFreq:920268982 FreqError:-750 Transmitter:0}
+12:06:41.869537 ISS: 500114FF7100 75 0 0 0 0 msg.ID=0
+12:06:41.869607 Hop: {ChannelIdx:48 ChannelFreq:925591980 FreqError:-1929 Transmitter:0}
+12:06:44.431675 ISS: 600114FFC300 76 0 0 0 0 msg.ID=0
+12:06:44.431715 Hop: {ChannelIdx:7 ChannelFreq:919174988 FreqError:-852 Transmitter:0}
+12:06:46.993171 ISS: 8001142ECB00 77 0 0 0 0 msg.ID=0
+12:06:46.993192 Hop: {ChannelIdx:24 ChannelFreq:921833984 FreqError:-1338 Transmitter:0}
+12:06:49.556843 ISS: E00215730100 78 0 0 0 0 msg.ID=0
+12:06:49.556866 Hop: {ChannelIdx:34 ChannelFreq:923400940 FreqError:-1448 Transmitter:0}
+12:06:52.118772 ISS: 500210FF7100 79 0 0 0 0 msg.ID=0
+12:06:52.118811 Hop: {ChannelIdx:45 ChannelFreq:925122986 FreqError:-1333 Transmitter:0}
+12:06:54.680649 ISS: 400208FFC300 80 0 0 0 0 msg.ID=0
+12:06:54.680707 Hop: {ChannelIdx:1 ChannelFreq:918233948 FreqError:-1498 Transmitter:0}
+12:06:57.244311 ISS: 8002062EDB00 81 0 0 0 0 msg.ID=0
+12:06:57.244335 Hop: {ChannelIdx:17 ChannelFreq:920738953 FreqError:-2542 Transmitter:0}
+12:06:59.806217 ISS: E00209730300 82 0 0 0 0 msg.ID=0
+12:06:59.806266 Hop: {ChannelIdx:39 ChannelFreq:924182983 FreqError:-1629 Transmitter:0}
+12:07:02.368431 ISS: 50010DFF7300 83 0 0 0 0 msg.ID=0
+12:07:02.368468 Hop: {ChannelIdx:26 ChannelFreq:922146973 FreqError:-1429 Transmitter:0}
+12:07:04.929941 ISS: 900114030342 84 0 0 0 0 msg.ID=0
+12:07:04.930205 Hop: {ChannelIdx:9 ChannelFreq:919487000 FreqError:-1490 Transmitter:0}
+12:07:07.494004 ISS: 8002142EDB00 85 0 0 0 0 msg.ID=0
+12:07:07.494029 Hop: {ChannelIdx:31 ChannelFreq:922931946 FreqError:-900 Transmitter:0}
+12:07:10.055810 ISS: E00215730100 86 0 0 0 0 msg.ID=0
+12:07:10.055837 Hop: {ChannelIdx:50 ChannelFreq:925905945 FreqError:-1345 Transmitter:0}
+12:07:12.618098 ISS: 500213FF7300 87 0 0 0 0 msg.ID=0
+12:07:12.618132 Hop: {ChannelIdx:37 ChannelFreq:923869995 FreqError:-1385 Transmitter:0}
+12:07:15.181308 ISS: A00213562B00 88 0 0 0 0 msg.ID=0
+12:07:15.181340 Hop: {ChannelIdx:12 ChannelFreq:919955994 FreqError:-1679 Transmitter:0}
+12:07:17.743301 ISS: 8002122EDB00 89 0 0 0 0 msg.ID=0
+12:07:17.743326 Hop: {ChannelIdx:20 ChannelFreq:921207947 FreqError:-1292 Transmitter:0}
+12:07:20.305210 ISS: E00112730100 90 0 0 0 0 msg.ID=0
+12:07:20.305233 Hop: {ChannelIdx:33 ChannelFreq:923242981 FreqError:-1287 Transmitter:0}
+12:07:22.869269 ISS: 500212FF7000 91 0 0 0 0 msg.ID=0
+12:07:22.869305 Hop: {ChannelIdx:4 ChannelFreq:918703979 FreqError:-1505 Transmitter:0}
+12:07:25.430979 ISS: A00212562900 92 0 0 0 0 msg.ID=0
+12:07:25.431001 Hop: {ChannelIdx:43 ChannelFreq:924809998 FreqError:-1485 Transmitter:0}
+12:07:27.993203 ISS: 8002122ED900 93 0 0 0 0 msg.ID=0
+12:07:27.993243 Hop: {ChannelIdx:28 ChannelFreq:922461975 FreqError:-1097 Transmitter:0}
+12:07:30.554772 ISS: E00212730100 94 0 0 0 0 msg.ID=0
+12:07:30.554798 Hop: {ChannelIdx:15 ChannelFreq:920424988 FreqError:-1504 Transmitter:0}
+12:07:33.118652 ISS: 500212FF7100 95 0 0 0 0 msg.ID=0
+12:07:33.118680 Hop: {ChannelIdx:35 ChannelFreq:923556946 FreqError:-1143 Transmitter:0}
+12:07:35.680313 ISS: 600112FFC100 96 0 0 0 0 msg.ID=0
+12:07:35.680356 Hop: {ChannelIdx:6 ChannelFreq:919016968 FreqError:-1262 Transmitter:0}
+12:07:38.242298 ISS: 8001122ED900 97 0 0 0 0 msg.ID=0
+12:07:38.242501 Hop: {ChannelIdx:40 ChannelFreq:924339966 FreqError:-1345 Transmitter:0}
+12:07:40.805954 ISS: E00212730100 98 0 0 0 0 msg.ID=0
+12:07:40.805978 Hop: {ChannelIdx:11 ChannelFreq:919799988 FreqError:-491 Transmitter:0}
+12:07:43.367856 ISS: 500212FF7100 99 0 0 0 0 msg.ID=0
+12:07:43.367882 Hop: {ChannelIdx:23 ChannelFreq:921677979 FreqError:-871 Transmitter:0}
+12:07:45.929638 ISS: 400112FFC100 100 0 0 0 0 msg.ID=0
+12:07:45.929668 Hop: {ChannelIdx:46 ChannelFreq:925278992 FreqError:-1059 Transmitter:0}
+12:07:48.493746 ISS: 8001122ED900 101 0 0 0 0 msg.ID=0
+12:07:48.493771 Hop: {ChannelIdx:18 ChannelFreq:920895996 FreqError:-1443 Transmitter:0}
+12:07:51.055769 ISS: E00112730100 102 0 0 0 0 msg.ID=0
+12:07:51.055796 Hop: {ChannelIdx:0 ChannelFreq:918078400 FreqError:-1996 Transmitter:0}
+12:07:53.617524 ISS: 500112FF7100 103 0 0 0 0 msg.ID=0
+12:07:53.617547 Hop: {ChannelIdx:19 ChannelFreq:921050964 FreqError:-2899 Transmitter:0}
+12:07:56.179414 ISS: 900112030152 104 0 0 0 0 msg.ID=0
+12:07:56.179435 Hop: {ChannelIdx:41 ChannelFreq:924496948 FreqError:-1987 Transmitter:0}
+12:07:58.743258 ISS: 8002122EDB00 105 0 0 0 0 msg.ID=0
+12:07:58.743278 Hop: {ChannelIdx:25 ChannelFreq:921991943 FreqError:-2363 Transmitter:0}
+12:08:01.304987 ISS: E00212740300 106 0 0 0 0 msg.ID=0
+12:08:01.305022 Hop: {ChannelIdx:8 ChannelFreq:919328979 FreqError:-2854 Transmitter:0}
+12:08:03.866922 ISS: 500212230300 107 0 0 0 0 msg.ID=0
+12:08:03.866948 Hop: {ChannelIdx:47 ChannelFreq:925436951 FreqError:-2286 Transmitter:0}
+12:08:06.430538 ISS: A00112492B00 108 0 0 0 0 msg.ID=0
+12:08:06.430732 Hop: {ChannelIdx:32 ChannelFreq:923085999 FreqError:-2454 Transmitter:0}
+12:08:08.992327 ISS: 8002132EDB00 109 0 0 0 0 msg.ID=0
+12:08:08.992361 Hop: {ChannelIdx:13 ChannelFreq:920112000 FreqError:-2044 Transmitter:0}
+12:08:11.554371 ISS: E00113780300 110 0 0 0 0 msg.ID=0
+12:08:11.554394 Hop: {ChannelIdx:36 ChannelFreq:923712952 FreqError:-2948 Transmitter:0}
+12:08:14.116301 ISS: 500113230300 111 0 0 0 0 msg.ID=0
+12:08:14.116327 Hop: {ChannelIdx:22 ChannelFreq:921520996 FreqError:-2492 Transmitter:0}
+12:08:14.118370 duplicate packet: 500113230300D07B
+12:08:16.680465 ISS: A00114492900 112 0 0 0 0 msg.ID=0
+12:08:16.680512 Hop: {ChannelIdx:3 ChannelFreq:918546997 FreqError:-1966 Transmitter:0}
+12:08:19.242053 ISS: 8001142ED900 113 0 0 0 0 msg.ID=0
+12:08:19.242075 Hop: {ChannelIdx:29 ChannelFreq:922617981 FreqError:-2655 Transmitter:0}
+12:08:21.804141 ISS: E00215780100 114 0 0 0 0 msg.ID=0
+12:08:21.804189 Hop: {ChannelIdx:44 ChannelFreq:924963989 FreqError:-3670 Transmitter:0}
+12:08:24.367722 ISS: 500218230300 115 0 0 0 0 msg.ID=0
+12:08:24.367790 Hop: {ChannelIdx:16 ChannelFreq:920581970 FreqError:-2573 Transmitter:0}
+12:08:26.929572 ISS: 600119FFC100 116 0 0 0 0 msg.ID=0
+12:08:26.929602 Hop: {ChannelIdx:5 ChannelFreq:918859985 FreqError:-1820 Transmitter:0}
+12:08:29.491361 ISS: 80011B2ED900 117 0 0 0 0 msg.ID=0
+12:08:29.491388 Hop: {ChannelIdx:27 ChannelFreq:922304993 FreqError:-2215 Transmitter:0}
+12:08:32.055742 ISS: E0021B780100 118 0 0 0 0 msg.ID=0
+12:08:32.055782 Hop: {ChannelIdx:38 ChannelFreq:924028992 FreqError:-1442 Transmitter:0}
+12:08:34.617401 ISS: 50021B250100 119 0 0 0 0 msg.ID=0
+12:08:34.617426 Hop: {ChannelIdx:10 ChannelFreq:919642944 FreqError:-2620 Transmitter:0}
+12:08:37.179560 ISS: 40021BFFC100 120 0 0 0 0 msg.ID=0
+12:08:37.179585 Hop: {ChannelIdx:49 ChannelFreq:925750000 FreqError:-2045 Transmitter:0}
+12:08:39.742575 ISS: 80021B2EDB00 121 0 0 0 0 msg.ID=0
+12:08:39.742595 Hop: {ChannelIdx:21 ChannelFreq:921365967 FreqError:-2368 Transmitter:0}
+12:08:42.304572 ISS: E0011A780300 122 0 0 0 0 msg.ID=0
+12:08:42.304598 Hop: {ChannelIdx:2 ChannelFreq:918389954 FreqError:-2249 Transmitter:0}
+12:08:44.866380 ISS: 50011A322100 123 0 0 0 0 msg.ID=0
+12:08:44.866401 Hop: {ChannelIdx:30 ChannelFreq:922774963 FreqError:-2484 Transmitter:0}
+12:08:47.430290 ISS: 90021A030162 124 0 0 0 0 msg.ID=0
+12:08:47.430326 Hop: {ChannelIdx:42 ChannelFreq:924653992 FreqError:-2268 Transmitter:0}
+12:08:49.991950 ISS: 80011A2ED900 125 0 0 0 0 msg.ID=0
+12:08:49.991996 Hop: {ChannelIdx:14 ChannelFreq:920268982 FreqError:-1795 Transmitter:0}
+12:08:52.553773 ISS: E0021A780100 126 0 0 0 0 msg.ID=0
+12:08:52.553805 Hop: {ChannelIdx:48 ChannelFreq:925591980 FreqError:-3574 Transmitter:0}
+12:08:55.115697 ISS: 50011AD62100 127 0 0 0 0 msg.ID=0
+12:08:55.115743 Hop: {ChannelIdx:7 ChannelFreq:919174988 FreqError:-1753 Transmitter:0}
+12:08:57.680017 ISS: A0021A482900 128 0 0 0 0 msg.ID=0
+12:08:57.680073 Hop: {ChannelIdx:24 ChannelFreq:921833984 FreqError:-2352 Transmitter:0}
+12:09:00.241708 ISS: 80021A2ED900 129 0 0 0 0 msg.ID=0
+12:09:00.241736 Hop: {ChannelIdx:34 ChannelFreq:923400940 FreqError:-2847 Transmitter:0}
+12:09:02.803922 ISS: E0011A780100 130 0 0 0 0 msg.ID=0
+12:09:02.803947 Hop: {ChannelIdx:45 ChannelFreq:925122986 FreqError:-2482 Transmitter:0}
+12:09:05.365671 ISS: 50021A7A3100 131 0 0 0 0 msg.ID=0
+12:09:05.365694 Hop: {ChannelIdx:1 ChannelFreq:918233948 FreqError:-1930 Transmitter:0}
+12:09:07.929487 ISS: A0011A482900 132 0 0 0 0 msg.ID=0
+12:09:07.929508 Hop: {ChannelIdx:17 ChannelFreq:920738953 FreqError:-3605 Transmitter:0}
+12:09:10.491699 ISS: 80011A2ED900 133 0 0 0 0 msg.ID=0
+12:09:10.491736 Hop: {ChannelIdx:39 ChannelFreq:924182983 FreqError:-2805 Transmitter:0}
+12:09:13.053243 ISS: E0011A780100 134 0 0 0 0 msg.ID=0
+12:09:13.053266 Hop: {ChannelIdx:26 ChannelFreq:922146973 FreqError:-2673 Transmitter:0}
+12:09:15.617207 ISS: 50011A414100 135 0 0 0 0 msg.ID=0
+12:09:15.617249 Hop: {ChannelIdx:9 ChannelFreq:919487000 FreqError:-3004 Transmitter:0}
+12:09:18.179087 ISS: 60011AFFC100 136 0 0 0 0 msg.ID=0
+12:09:18.179117 Hop: {ChannelIdx:31 ChannelFreq:922931946 FreqError:-1666 Transmitter:0}
+12:09:20.740860 ISS: 80011A2ED900 137 0 0 0 0 msg.ID=0
+12:09:20.740886 Hop: {ChannelIdx:50 ChannelFreq:925905945 FreqError:-2036 Transmitter:0}
+12:09:23.302713 ISS: E0011A780100 138 0 0 0 0 msg.ID=0
+12:09:23.302740 Hop: {ChannelIdx:37 ChannelFreq:923869995 FreqError:-2572 Transmitter:0}
+12:09:23.304742 duplicate packet: E0011A78010010FD
+12:09:25.866551 ISS: 50011A4C4100 139 0 0 0 0 msg.ID=0
+12:09:25.866577 Hop: {ChannelIdx:12 ChannelFreq:919955994 FreqError:-3107 Transmitter:0}
+12:09:28.428456 ISS: 40021AFFC100 140 0 0 0 0 msg.ID=0
+12:09:28.428501 Hop: {ChannelIdx:20 ChannelFreq:921207947 FreqError:-2850 Transmitter:0}
+12:09:30.990475 ISS: 80011A2ED900 141 0 0 0 0 msg.ID=0
+12:09:30.990501 Hop: {ChannelIdx:33 ChannelFreq:923242981 FreqError:-2815 Transmitter:0}
+12:09:33.554473 ISS: E0021A780100 142 0 0 0 0 msg.ID=0
+12:09:33.554527 Hop: {ChannelIdx:4 ChannelFreq:918703979 FreqError:-2566 Transmitter:0}
+12:09:36.116685 ISS: 50021A564100 143 0 0 0 0 msg.ID=0
+12:09:36.116706 Hop: {ChannelIdx:43 ChannelFreq:924809998 FreqError:-2362 Transmitter:0}
+12:09:38.677870 ISS: 900219030372 144 0 0 0 0 msg.ID=0
+12:09:38.677894 Hop: {ChannelIdx:28 ChannelFreq:922461975 FreqError:-2087 Transmitter:0}
+12:09:41.241932 ISS: 8002192ECB00 145 0 0 0 0 msg.ID=0
+12:09:41.241959 Hop: {ChannelIdx:15 ChannelFreq:920424988 FreqError:-2830 Transmitter:0}
+12:09:43.803870 ISS: E00219780300 146 0 0 0 0 msg.ID=0
+12:09:43.803895 Hop: {ChannelIdx:35 ChannelFreq:923556946 FreqError:-1841 Transmitter:0}
+12:09:46.365736 ISS: 500219604300 147 0 0 0 0 msg.ID=0
+12:09:46.365767 Hop: {ChannelIdx:6 ChannelFreq:919016968 FreqError:-2412 Transmitter:0}
+12:09:48.927566 ISS: A00219522B00 148 0 0 0 0 msg.ID=0
+12:09:48.927592 Hop: {ChannelIdx:40 ChannelFreq:924339966 FreqError:-2506 Transmitter:0}
+12:09:51.491413 ISS: 8001192ECB00 149 0 0 0 0 msg.ID=0
+12:09:51.491440 Hop: {ChannelIdx:11 ChannelFreq:919799988 FreqError:-1720 Transmitter:0}
+12:09:54.053277 ISS: E00119780300 150 0 0 0 0 msg.ID=0
+12:09:54.053310 Hop: {ChannelIdx:23 ChannelFreq:921677979 FreqError:-1857 Transmitter:0}
+12:09:56.615079 ISS: 5002196A4300 151 0 0 0 0 msg.ID=0
+12:09:56.615101 Hop: {ChannelIdx:46 ChannelFreq:925278992 FreqError:-2530 Transmitter:0}
+12:09:59.178689 ISS: A00219522B00 152 0 0 0 0 msg.ID=0
+12:09:59.178716 Hop: {ChannelIdx:18 ChannelFreq:920895996 FreqError:-2794 Transmitter:0}
+12:10:01.740654 ISS: 8001192ECB00 153 0 0 0 0 msg.ID=0
+12:10:01.740682 Hop: {ChannelIdx:0 ChannelFreq:918078400 FreqError:-2012 Transmitter:0}
+12:10:04.302558 ISS: E00219780300 154 0 0 0 0 msg.ID=0
+12:10:04.302602 Hop: {ChannelIdx:19 ChannelFreq:921050964 FreqError:-4438 Transmitter:0}
+12:10:06.866696 ISS: 500211754100 155 0 0 0 0 msg.ID=0
+12:10:06.866721 Hop: {ChannelIdx:41 ChannelFreq:924496948 FreqError:-3398 Transmitter:0}
+12:10:09.427433 ISS: 600111FFC100 156 0 0 0 0 msg.ID=0
+12:10:09.427459 Hop: {ChannelIdx:25 ChannelFreq:921991943 FreqError:-3919 Transmitter:0}
+12:10:11.991435 ISS: 8001112EC900 157 0 0 0 0 msg.ID=0
+12:10:11.991455 Hop: {ChannelIdx:8 ChannelFreq:919328979 FreqError:-3872 Transmitter:0}
+12:10:14.553286 ISS: E00111780100 158 0 0 0 0 msg.ID=0
+12:10:14.553313 Hop: {ChannelIdx:47 ChannelFreq:925436951 FreqError:-3324 Transmitter:0}
+12:10:17.115308 ISS: 50020F7F4100 159 0 0 0 0 msg.ID=0
+12:10:17.115331 Hop: {ChannelIdx:32 ChannelFreq:923085999 FreqError:-3656 Transmitter:0}
+12:10:19.677136 ISS: 40020FFFC100 160 0 0 0 0 msg.ID=0
+12:10:19.677159 Hop: {ChannelIdx:13 ChannelFreq:920112000 FreqError:-3370 Transmitter:0}
+12:10:22.240862 ISS: 80030F2EC900 161 0 0 0 0 msg.ID=0
+12:10:22.240888 Hop: {ChannelIdx:36 ChannelFreq:923712952 FreqError:-4409 Transmitter:0}
+12:10:24.802698 ISS: E0020F780100 162 0 0 0 0 msg.ID=0
+12:10:24.802725 Hop: {ChannelIdx:22 ChannelFreq:921520996 FreqError:-5072 Transmitter:0}
+12:10:27.364610 ISS: 50020F894100 163 0 0 0 0 msg.ID=0
+12:10:27.364669 Hop: {ChannelIdx:3 ChannelFreq:918546997 FreqError:-3276 Transmitter:0}
+12:10:29.928261 ISS: 90020F030101 164 0 0 0 0 msg.ID=0
+12:10:29.928290 Hop: {ChannelIdx:29 ChannelFreq:922617981 FreqError:-3420 Transmitter:0}
+12:10:32.490305 ISS: 80020F2EC900 165 0 0 0 0 msg.ID=0
+12:10:32.490330 Hop: {ChannelIdx:44 ChannelFreq:924963989 FreqError:-5448 Transmitter:0}
