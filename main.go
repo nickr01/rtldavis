@@ -61,6 +61,8 @@ var (
     disableAfc        *bool          // -noafc = disable any automatic corrections
     deviceString      *string        // -d = device serial number or device index
 
+    dataDump          *bool          // -datadump = generate data dump files for use in testing
+
     // general
     actChan           [maxTr]int     // list with actual channels (0-7); 
                                      //   next values are zero (non-meaning)
@@ -137,6 +139,8 @@ var (
     disableAfc = flag.Bool("noafc", false, "disable any AFC")
     deviceString = flag.String("d","0","device serial number or device index")
 
+    dataDump = flag.Bool("dump", false, "data dump")
+
     flag.Parse()
     protocol.Verbose = *verbose
 
@@ -153,7 +157,7 @@ var (
     }
     log.Printf("Country Code:%s",*countryCode)
     log.Printf("tr=%d fc=%d ppm=%d gain=%d maxmissed=%d ex=%d receiveWindow=%d actChan=%d maxChan=%d", tr, fc, ppm, gain, maxmissed, ex, receiveWindow, actChan[0:maxChan], maxChan)
-    log.Printf("undefined=%v verbose=%v disableAfc=%v deviceString=%s", *undefined, *verbose, *disableAfc, *deviceString)  
+    log.Printf("undefined=%v verbose=%v disableAfc=%v deviceString=%s dump=%v", *undefined, *verbose, *disableAfc, *deviceString, *dataDump)
 
     // Preset loopperiods per id
     idLoopPeriods[0] = 2562500 * time.Microsecond
@@ -180,7 +184,8 @@ func main() {
         sdrIndex = indexreturn
     }
 
-    dev, err := rtlsdr.Open(0)
+    log.Printf("sdrIndex: %d", sdrIndex)
+    dev, err := rtlsdr.Open(sdrIndex)
     if err != nil {
         log.Fatal(err)
     }
@@ -280,8 +285,12 @@ func main() {
     signal.Notify(sig, os.Interrupt, os.Kill)
 
     block := make([]byte, p.Cfg.BlockSize2)
+    prior_block := make([]byte, p.Cfg.BlockSize2) // for dataDump use
+
     initTransmitrs = true
     maxFreq = p.ChannelCount
+
+    dumpBlockId := 0
 
     // Set the idLoopPeriods for one full rotation of the pattern + 1. 
     loopPeriod = time.Duration(maxFreq + 2) * idLoopPeriods[actChan[maxChan-1]]
@@ -338,22 +347,28 @@ func main() {
                 }
 
         default:
+            if *dataDump {
+               copy(prior_block, block)  // for later dump purpose as we dump prior and current
+            }
             in.Read(block)
+            dumpBlock := false
             handleNxtPacket = false
-            for _, msg := range p.Parse(p.Demodulate(block)) {
+
+            msgs := p.Parse(p.Demodulate(block))
+            for _, msg := range msgs {
                 curTime = time.Now().UnixNano()
                 //log.Printf("msg.Data: %02X", msg.Data)
                 // Keep track of duplicate packets
                 seen := string(msg.Data)
                 if seen == lastRecMsg {
-                    log.Printf("duplicate packet: %02X", msg.Data)
+                    log.Printf("Block:%08X, duplicate packet: %02X", dumpBlockId, msg.Data[0:6])
                     continue  // read next message
                 }
                 lastRecMsg = seen
                 // check if msg comes from undefined sensor
                 if msgIdToChan[int(msg.ID)] == 9 {
                     if *undefined {
-                        log.Printf("undefined: %02X ID=%d", msg.Data, msg.ID)
+                        log.Printf("Block:%08X, undefined: %02X ID=%d", dumpBlockId, msg.Data, msg.ID)
                     }
                     idUndefs[int(msg.ID)]++
                     continue  // read next message
@@ -365,10 +380,10 @@ func main() {
                             visitCount +=1
                             chLastVisits[msgIdToChan[int(msg.ID)]] = curTime
                             chLastHops[msgIdToChan[int(msg.ID)]] = p.HopToSeq(actHopChanIdx)
-                            log.Printf("TRANSMITTER %d SEEN", msg.ID)
+                            log.Printf("Block:%08X, TRANSMITTER %d SEEN", dumpBlockId, msg.ID)
                             if visitCount == maxChan {
                                 if maxChan > 1 {
-                                    log.Printf("ALL TRANSMITTERS SEEN")
+                                    log.Printf("Block:%08X, ALL TRANSMITTERS SEEN", dumpBlockId)
                                 }
                                 initTransmitrs = false
                                 handleNxtPacket = true
@@ -380,12 +395,16 @@ func main() {
                         // normal hopping
                         chLastHops[msgIdToChan[int(msg.ID)]] = p.HopToSeq(actHopChanIdx)
                         chLastVisits[msgIdToChan[int(msg.ID)]] = curTime
+			if *dataDump {
+                            log.Printf("***Good Hop, Block:%08X, msg: %02X", dumpBlockId, msg.Data)
+                            dumpBlock = true
+			}
                         if *undefined {
                             log.Printf("%02X %d %d %d %d %d msg.ID=%d undefined:%d", 
                                 msg.Data, chTotMsgs[0], chTotMsgs[1], chTotMsgs[2], chTotMsgs[3], totInit, msg.ID, idUndefs)
                         } else {
-                            log.Printf("%02X %d %d %d %d %d msg.ID=%d", 
-                                msg.Data, chTotMsgs[0], chTotMsgs[1], chTotMsgs[2], chTotMsgs[3], totInit, msg.ID) 
+                            log.Printf("ISS: %02X %d %d %d %d %d msg.ID=%d", 
+                                msg.Data[0:6], chTotMsgs[0], chTotMsgs[1], chTotMsgs[2], chTotMsgs[3], totInit, msg.ID) 
                         }
                         handleNxtPacket = true
                     }
@@ -398,6 +417,17 @@ func main() {
                 loopPeriod = time.Duration(chNextVisits[expectedChanPtr] - curTime + int64(62500 * time.Microsecond) + int64((receiveWindow + ex) * 1000000))
                 loopTimer = time.After(loopPeriod)
                 nextHop <- p.SetHop(nextHopChan, nextHopTran)
+            }
+            if dumpBlock {
+                if dumpBlockId >0 {
+                   // skip block 0 as prior is indeterminate
+                   log.Printf("Dumping Block:%08X", dumpBlockId)
+                   // Dump code goes here - dump msgs, prior_block and block
+                   // for _, msg := range msgs {
+                   //    msg.Data
+                }
+                log.Printf("-----------------------------")
+                dumpBlockId++
             }
         }
     }
