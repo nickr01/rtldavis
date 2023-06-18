@@ -109,6 +109,8 @@ var (
 
     // msg handling
     lastRecMsg        string         // string of last received raw code
+
+    msg_f             io.Writer      // file handle for dataDump
 )
 
 
@@ -273,6 +275,15 @@ func main() {
         }
     }()
 
+    if *dataDump {
+        f, err := os.Create("msgs.txt")
+        if err != nil {
+           log.Fatal(err)
+        }
+        defer f.Close()
+        msg_f = f
+    }
+
     defer func() {
         in.Close()
         out.Close()
@@ -285,7 +296,7 @@ func main() {
     signal.Notify(sig, os.Interrupt, os.Kill)
 
     block := make([]byte, p.Cfg.BlockSize2)
-    prior_block := make([]byte, p.Cfg.BlockSize2) // for dataDump use
+    priorBlock := make([]byte, p.Cfg.BlockSize2) // for dataDump use
 
     initTransmitrs = true
     maxFreq = p.ChannelCount
@@ -348,7 +359,7 @@ func main() {
 
         default:
             if *dataDump {
-               copy(prior_block, block)  // for later dump purpose as we dump prior and current
+               copy(priorBlock, block)  // for later dump purpose as we dump prior and current
             }
             in.Read(block)
             dumpBlock := false
@@ -421,10 +432,32 @@ func main() {
             if dumpBlock {
                 if dumpBlockId >0 {
                    // skip block 0 as prior is indeterminate
-                   log.Printf("Dumping Block:%08X", dumpBlockId)
-                   // Dump code goes here - dump msgs, prior_block and block
-                   // for _, msg := range msgs {
-                   //    msg.Data
+                   var name = fmt.Sprintf("B%08X.bin",dumpBlockId)
+                   log.Printf("Dumping Block:%s", name)
+
+                   // Dump code goes here - dump msgs, priorBlock and block
+                   for _, msg := range msgs {
+                       _, err := fmt.Fprintf(msg_f, "%s msg:%02X\n",name, msg.Data)
+                       if err != nil {
+                           log.Fatal(err)
+                       }
+                   }
+
+                   f,err := os.Create(name)
+                   if err != nil {
+                      log.Fatal(err)
+                   }
+                   defer f.Close()
+
+                   _, err = f.Write(priorBlock)
+                   if err != nil {
+                      log.Fatal(err)
+                   }
+
+                   _, err = f.Write(block)
+                   if err != nil {
+                      log.Fatal(err)
+                   } 
                 }
                 log.Printf("-----------------------------")
                 dumpBlockId++
